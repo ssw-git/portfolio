@@ -1,0 +1,17 @@
+# Only the build folder is needed, copy it to /app/build
+FROM node:18-alpine AS release
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the build output from the previous stage
+COPY . .
+
+# Install serve to serve the build files
+RUN npm install -g serve
+
+# Expose the internal port
+EXPOSE 4001
+
+# Command to run the app
+CMD ["serve", "-s", ".", "-l", "4001"]
